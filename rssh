@@ -19,3 +19,38 @@ if ! check_for_xmlstarlet; then
   exit 1
 fi
   
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config}
+config_folder="${XDG_CONFIG_HOME}/rssh"
+
+serialize() {
+  echo "[$1] $2"
+}
+
+parse_xml() {
+  title="$(xml sel -t -v "//rss/channel/title" $1)"
+  item_count=$(xml sel -t -c "count(//rss/channel/item)" $1)
+
+  for (( i=1; i<=$item_count; i++ ))
+  do
+    item_title="$(xml sel -t -v "//rss/channel/item[$i]/title" $1)"
+    serialize "$title" "$item_title"
+  done
+}
+
+read_feed_file() {
+  entries=($(cat $1))
+  for entry in "${entries[@]}" 
+  do 
+    echo "$entry"
+  done
+}
+
+check_feed_files() {
+  if [[ ! -d $config_folder ]]; then 
+    # No config folder, create it.
+    mkdir -p ${config_folder}
+    touch ${config_folder}/default.feed
+  fi
+
+}
+check_feed_files
