@@ -27,12 +27,12 @@ serialize() {
 }
 
 parse_xml() {
-  title="$(xml sel -t -v "//rss/channel/title" $1)"
-  item_count=$(xml sel -t -c "count(//rss/channel/item)" $1)
+  title="$(xml sel -t -v "//rss/channel/title" <<< "$1")"
+  item_count=$(xml sel -t -c "count(//rss/channel/item)" <<< "$1")
 
   for (( i=1; i<=$item_count; i++ ))
   do
-    item_title="$(xml sel -t -v "//rss/channel/item[$i]/title" $1)"
+    item_title="$(xml sel -t -v "//rss/channel/item[$i]/title" <<< "$1")"
     serialize "$title" "$item_title"
   done
 }
@@ -51,6 +51,5 @@ check_feed_files() {
     mkdir -p ${config_folder}
     touch ${config_folder}/default.feed
   fi
-
 }
-check_feed_files
+
