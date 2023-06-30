@@ -1,7 +1,7 @@
 PREFIX=/usr
 
 all:
-	@echo Run 'make install' to install RSSh
+	@echo Run \'make install\' to install RSSh
 install:
 	@mkdir -p $(DESTDIR)$(PREFIX)/bin
 	@cp -p $(DESTDIR)$(PREFIX)/bin/rssh
