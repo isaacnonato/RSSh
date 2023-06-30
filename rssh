@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function get_exit_code {
+  type $1 >/dev/null 2>&1
+  local return_=$?
+  echo $return_
+}
+
+function check_for_xmlstarlet {
+  local return_=1
+  if [[ $(get_exit_code xmlstarlet) -eq 0 ]] || [[ $(get_exit_code xml) -eq 0 ]]; then
+    local return_=0
+  fi
+  return $return_
+}
+
+if ! check_for_xmlstarlet; then 
+  echo "XMLStarlet not installed."
+  exit 1
+fi
+  
