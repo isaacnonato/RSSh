@@ -8,6 +8,3 @@ install:
 	@chmod 755 $(DESTDIR)$(PREFIX)/bin/rssh
 uninstall:
 	@rm $(DESTDIR)$(PREFIX)/bin/rssh
-	
- 
-	
