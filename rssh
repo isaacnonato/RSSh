@@ -1,5 +1,7 @@
 #!/bin/bash
 
+xml_executable="xml"
+
 function get_exit_code {
   type $1 >/dev/null 2>&1
   local return_=$?
@@ -14,6 +16,10 @@ function check_for_xmlstarlet {
   return $return_
 }
 
+if ! get_exit_code xmlstarlet; then 
+  xml_executable="xmlstarlet"
+fi
+
 if ! check_for_xmlstarlet; then 
   echo "XMLStarlet not installed."
   exit 1
@@ -27,12 +33,12 @@ serialize() {
 }
 
 parse_xml() {
-  title="$(xml sel -t -v "//rss/channel/title" <<< "$1")"
-  item_count=$(xml sel -t -c "count(//rss/channel/item)" <<< "$1")
+  title="$($xml_executable sel -t -v "//rss/channel/title" <<< "$1")"
+  item_count=$($xml_executable sel -t -c "count(//rss/channel/item)" <<< "$1")
 
   for (( i=1; i<=$item_count; i++ ))
   do
-    item_title="$(xml sel -t -v "//rss/channel/item[$i]/title" <<< "$1")"
+    item_title="$($xml_executable sel -t -v "//rss/channel/item[$i]/title" <<< "$1")"
     serialize "$title" "$item_title"
   done
 }
@@ -52,4 +58,7 @@ check_feed_files() {
     touch ${config_folder}/default.feed
   fi
 }
+
+test=$(curl http://rss.cnn.com/rss/edition.rss)
+parse_xml "$test"
 
