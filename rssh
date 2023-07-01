@@ -28,7 +28,6 @@ fi
   
 XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config}
 config_folder="${XDG_CONFIG_HOME}/rssh"
-cd $config_folder
 
 serialize() {
   echo "[$1] $2"
@@ -55,6 +54,7 @@ read_and_serve_feed_file() {
   do 
      parse_xml "$(curl --silent $entry)"
   done
+  printf '\n'
 }
 
 check_feed_files() {
@@ -63,6 +63,7 @@ check_feed_files() {
     mkdir -p ${config_folder}
     touch ${config_folder}/default.feed
   fi
+  cd $config_folder
 }
 
 read_config_folder() {
@@ -73,4 +74,4 @@ read_config_folder() {
     read_and_serve_feed_file $file
   done
 }
-
+read_config_folder
