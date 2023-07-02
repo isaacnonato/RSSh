@@ -40,7 +40,7 @@ serialize() {
 parse_xml() {
   title="$($xml_executable sel -t -v "//rss/channel/title" <<< "$1")"
   item_count=$($xml_executable sel -t -c "count(//rss/channel/item)" <<< "$1")
-  if (( $item_count > $max_item_count )); then 
+  if (( $item_count>$max_item_count )); then
     item_count=$max_item_count
   fi
   for (( i=1; i<=$item_count; i++ ))
@@ -54,7 +54,7 @@ parse_xml() {
 read_and_serve_feed_file() {
   title=$(sed -n 1p $1)
   printf "### $title\n"
-  declare -a entries=($(tail -n 2 $1))
+  declare -a entries=($(awk '(NR>1)' "$1"))
   for entry in "${entries[@]}" 
   do 
      parse_xml "$(curl --silent $entry)"
