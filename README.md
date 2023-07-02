@@ -4,7 +4,7 @@ RSS news feed directly in your terminal.
 ## Dependencies
 * `bash`
 * `curl`
-* `xmlstarletawk`
+* `xmlstarlet`
 
 ## Installation
 To install RSSh, open a terminal and enter the following commands:
@@ -20,5 +20,5 @@ To uninstall RSSh, open the folder where you cloned the repo and type `make unin
 
 ## TODO
 
-* [] - allow user to customize the item count limit.
-* [] - add some colors
+* [ ] - allow user to customize the item count limit.
+* [ ] - add some colors
