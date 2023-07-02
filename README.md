@@ -20,5 +20,6 @@ To uninstall RSSh, open the folder where you cloned the repo and type `make unin
 
 ## TODO
 
-* [ ] - allow user to customize the item count limit.
+* [ ] - allow user to customize the item count limit
 * [ ] - add some colors
+* [ ] - add screenshots
