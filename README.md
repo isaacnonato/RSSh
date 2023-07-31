@@ -20,7 +20,7 @@ $ make install
 Configuring RSSh is easy, go to RSSH's config folder (usually located in
 `/home/<user>/.config/rssh`) and create a file with the `.feed` extension, the
 first line of the file must have the title of the desired section, followed by
-the RSS links separated by a newlines, each line must correspond to a section
+the RSS links separated by a newline, each file must correspond to a section
 only.
 ## Uninstalling 
 
