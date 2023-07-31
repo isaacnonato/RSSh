@@ -14,9 +14,18 @@ $ git clone https://github.com/isaacnonato/RSSh.git
 $ cd RSSh
 $ make install
 ```
+
+## Configuration
+
+Configuring RSSh is easy, go to RSSH's config folder (usually located in
+`/home/<user>/.config/rssh`) and create a file with the `.feed` extension, the
+first line of the file must have the title of the desired section, followed by
+the RSS links separated by a newlines, each line must correspond to a section
+only.
 ## Uninstalling 
 
-To uninstall RSSh, open the folder where you cloned the repo and type `make uninstall`
+To uninstall RSSh, open the folder where you cloned the repo and type `make
+uninstall`
 
 ## TODO
 
