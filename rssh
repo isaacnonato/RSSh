@@ -74,7 +74,7 @@ check_feed_files() {
 
 read_config_folder() {
   check_feed_files
-  declare -a files=($(ls $config_folder))
+  declare -a files=($(ls $config_folder | grep .feed))
   for file in "${files[@]}"
   do
     read_and_serve_feed_file $file
