@@ -52,12 +52,17 @@ parse_xml() {
 }
 
 read_and_serve_feed_file() {
-  title=$(sed -n 1p $1)
-  printf "### $title\n"
-  declare -a entries=($(awk '(NR>1)' "$1"))
-  for entry in "${entries[@]}" 
-  do 
-     parse_xml "$(curl --silent $entry)"
+  readarray -t content < "$1"
+  for line in "${content[@]}" 
+  do
+    if [[ -z "$line" ]]; then
+      echo
+    elif [[ $line =~ ^section ]]; then
+      echo -n "Section: "
+      echo "$line" | cut -d' ' -f 2-
+    else
+      parse_xml "$(curl --silent $line)"
+    fi
   done
   printf '\n'
 }
